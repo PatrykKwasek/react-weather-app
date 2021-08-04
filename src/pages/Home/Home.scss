@@ -1,0 +1,32 @@
+@import "../../styles/responsive.scss";
+
+.container {
+  .form-container {
+    width: 95%;
+    margin: 10px auto;
+    text-align: center;
+  }
+
+  .card-container {
+    width: 95%;
+    max-width: 250px;
+    margin: 20px auto;
+    border: 1px solid gray;
+    border-radius: 20px;
+    padding: 16px;
+
+    .country_id {
+      background-color: gold;
+      border-radius: 50%;
+      padding: 5px;
+    }
+  }
+}
+
+@media (min-width: $screen__m) {
+  .container {
+    .card-container {
+      width: 200px;
+    }
+  }
+}
