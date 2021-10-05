@@ -7,9 +7,12 @@ import { Input } from '../../components/Input/Input';
 import { Card } from '../../components/Card/Card';
 import { Form } from '../../components/Form/Form';
 import { Loader } from '../../components/Loader/Loader';
+import { Image } from '../../components/Image/Image';
+import { Footer } from '../../components/Footer/Footer';
+import { convertTimeToHumanDate } from '../../helpers/convertTimeToHumanDate';
 import './Home.scss';
 
-const APIKEY = 'cc0ad0a75d9e430f381b14640d51593b';
+const APIKEY =`${process.env.REACT_APP_API_KEY}`;
 
 export const Home = () => {
   const [apiData, setApiData] = useState({});
@@ -45,14 +48,19 @@ export const Home = () => {
 
   const content = () => (
     <div className='container'>
+      {/* Check api response */}
+      {console.log('apiData', apiData)}
       <div className='form-container'>
+        <h2>React Weather App</h2>
+
         <Form>
           <Input
             type='text'
             name='city'
-            placeholder='Enter city'
+            placeholder='Enter location'
             onChange={handleInput}
           />
+
           <Button
             txt='Submit'
             onClick={getData}
@@ -64,6 +72,35 @@ export const Home = () => {
       {Object.keys(apiData).length > 0 &&
         <Card city={cityDetails} data={apiData} />
       }
+
+      {Object.keys(apiData).length > 0 && (
+        <div>
+          {apiData.daily.slice(1).map((item) => (
+            <div>
+              <h3>{convertTimeToHumanDate(item.dt)}</h3>
+
+              <Image 
+                src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} 
+                alt={item.weather[0].description} 
+              />
+
+              <div>
+                <p>
+                  <span>
+                    {Math.round(item.temp.max)}<sup>o</sup>
+                  </span>
+
+                  <span>
+                    {Math.round(item.temp.min)}<sup>o</sup>
+                  </span>
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <Footer/>
     </div>
   )
 
