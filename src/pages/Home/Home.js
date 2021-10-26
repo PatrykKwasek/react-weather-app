@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { Loader } from '../../components/Loader/Loader';
+import { ErrorHandler } from '../../components/ErrorsHandling/ErrorHandler';
 
 import { getData } from '../../components/Api/Api';
 
@@ -12,6 +13,7 @@ export const Home = () => {
   const [inputData, setInputData] = useState({});
   const [cityDetails, setCityDetails] = useState({ name: '', country: '' });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState();
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -22,7 +24,6 @@ export const Home = () => {
   }
 
   const getWeatherData = () => {
-    // Show Loader when call API
     setLoading(true);
     getData(`weather?q=${inputData.city}&units=metric`)
       .then(response => {
@@ -33,11 +34,16 @@ export const Home = () => {
         getData(`onecall?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&exclude=minutely&units=metric`)
           .then(response => {
             setApiData(response.data);
-            // Hide Loader when call API ended
             setLoading(false);
           })
+      }).catch(error => {
+        console.log('Error response', error.response);
+        console.log('Error status', error.response.status);
+        setError(error);
       })
   }
+
+  if (error) return <ErrorHandler error={error} />;
 
   const content = () => (
     <HomeContent 
