@@ -23,7 +23,8 @@ export const Home = () => {
     })
   }
 
-  const getWeatherData = () => {
+  const getWeatherData = (e) => {
+    e.preventDefault();
     setLoading(true);
     getData(`weather?q=${inputData.city}&units=metric`)
       .then(response => {

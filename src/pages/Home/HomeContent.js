@@ -1,6 +1,5 @@
 import React from "react";
 
-import { Button } from "../../components/Button/Button";
 import { Card } from "../../components/Card/Card";
 import { Footer } from "../../components/Footer/Footer";
 import { Form } from "../../components/Form/Form";
@@ -8,24 +7,22 @@ import { Input } from "../../components/Input/Input";
 
 import './Home.scss';
 
-export const HomeContent = ({getWeatherData, handleInput, apiData, cityDetails}) => {
+export const HomeContent = ({ getWeatherData, handleInput, apiData, cityDetails }) => {
   return (
     <div className='container'>
       <div className='form-container'>
-        <h2>React Weather App</h2>
+        <h1 className='header'>React Weather App</h1>
 
-        <Form>
+        <Form 
+          onSubmit={getWeatherData} 
+          className='form'
+        >
           <Input
             type='text'
             name='city'
             placeholder='Enter location'
             onChange={handleInput}
-          />
-
-          <Button
-            txt='Submit'
-            onClick={getWeatherData}
-            type='button'
+            className='input'
           />
         </Form>
 

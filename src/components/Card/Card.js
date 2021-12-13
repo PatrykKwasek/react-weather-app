@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Image } from '../Image/Image';
+
 import { convertTimeToHumanDate } from '../../helpers/convertTimeToHumanDate';
 
 export const Card = ({ city, data }) => {
@@ -9,7 +10,6 @@ export const Card = ({ city, data }) => {
       <div className='card-container'>
         <p>
           {city.name} <sup className='country_id'>{city.country}</sup>
-
         </p>
 
         <p>
@@ -18,15 +18,16 @@ export const Card = ({ city, data }) => {
 
         <Image 
           src={`http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`} 
-          alt={data.current.weather[0].description} 
+          alt={data.current.weather[0].description}
+          className='card-weather-icon'
         />
 
         <p>{data.current.weather[0].description.toUpperCase()}</p>
 
         <div>
-          <p>Wind: {data.current.wind_speed}km/h</p>
-          <p>Humidity: {data.current.humidity}%</p>
-          <p>Pressure: {data.current.pressure} HPa</p>
+          <p><strong>Wind: </strong>{data.current.wind_speed}km/h</p>
+          <p><strong>Humidity: </strong>{data.current.humidity}%</p>
+          <p><strong>Pressure: </strong>{data.current.pressure} HPa</p>
         </div>
       </div>
 
@@ -37,19 +38,18 @@ export const Card = ({ city, data }) => {
 
             <Image 
               src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} 
-              alt={item.weather[0].description} 
+              alt={item.weather[0].description}
+              className='weather-icon'
             />
 
             <div>
-              <p>
-                <span>
-                  {Math.round(item.temp.max)}<sup>o</sup>
-                </span>
+              <span className='max-temperature'>
+                {Math.round(item.temp.max)}<sup>o</sup>
+              </span>
 
-                <span>
-                  {Math.round(item.temp.min)}<sup>o</sup>
-                </span>
-              </p>
+              <span className='min-temperature'>
+                {Math.round(item.temp.min)}<sup>o</sup>
+              </span>
             </div>
           </div>
         ))}

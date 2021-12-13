@@ -1,8 +1,8 @@
 import React from 'react';
 
-export const Form = ({ children, className }) => {
+export const Form = ({ children, onSubmit, className }) => {
   return (
-    <form className={className}>
+    <form onSubmit={onSubmit} className={className}>
       {children}
     </form>
   )
